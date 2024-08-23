@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+       <meta charset="UTF-8">
+
+       <title>Página com pesquisa CEP</title>
+    </head>
+    <body>
+        <label>CNPJ:
+            <input type="button" value="Buscar no Receita Ws" onclick="buscarEnderecoNoReceitaWs()" /><br /> 
+
+
+            <textarea name="" id=""></textarea>
+        
+           
+          </form>
+    </body>
+</html>
+
+
+<script type="importmap">
+    {
+      "imports": {
+        "@google/generative-ai": "https://esm.run/@google/generative-ai"
+      }
+    }
+  </script>
+
+  <script type="module">
+    import { GoogleGenerativeAI } from "@google/generative-ai";
+
+    // Fetch your API_KEY
+    const API_KEY = "...";
+
+    // Access your API key (see "Set up your API key" above)
+    const genAI = new GoogleGenerativeAI(API_KEY);
+
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
+</script>
+
+
