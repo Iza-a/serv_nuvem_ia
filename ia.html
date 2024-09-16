@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-       <meta charset="UTF-8">
 
-       <title>Página com pesquisa CEP</title>
-    </head>
-    <body>
-        <label>CNPJ:
-            <input type="button" value="Buscar no Receita Ws" onclick="buscarEnderecoNoReceitaWs()" /><br /> 
+<head>
+  <meta charset="UTF-8">
 
+  <title>Página com </title>
+</head>
 
-            <textarea name="" id=""></textarea>
-        
-           
-          </form>
-    </body>
+<body>
+  <label>P:
+    <br>
+    <textarea cols="70" rows="10" name="prompt" id="prompt"></textarea>
+    <br>
+    <input type="button" value="Enviar" id="button"  />
+    <br>
+    <textarea cols="70" rows="10" name="resposta" id="resposta"></textarea>
+    <br>
+
+    </form>
+</body>
+
 </html>
 
 
@@ -26,16 +31,80 @@
     }
   </script>
 
-  <script type="module">
-    import { GoogleGenerativeAI } from "@google/generative-ai";
+<script type="module">
+  import { GoogleGenerativeAI } from "@google/generative-ai";
 
-    // Fetch your API_KEY
-    const API_KEY = "...";
+  // Fetch your API_KEY
+  const API_KEY = "AIzaSyDiiA6-KjHMCV1E7PBCJG6RAct63tYyJi0";
 
-    // Access your API key (see "Set up your API key" above)
-    const genAI = new GoogleGenerativeAI(API_KEY);
+  // Access your API key (see "Set up your API key" above)
+  const genAI = new GoogleGenerativeAI(API_KEY);
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
-</script>
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
+
+  async function run() {
+    var prompt = "você é um especialista em educação sexual infanto-juvenil, e faz palestras sobre o assunto, e usa uma linguagem simples e clara para que seu público o compreenda. vamos começar?"
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+
+    document.getElementById("resposta").value = text;
+
+    console.log(text);
+  }
+
+  const botao = document.getElementById('button');
+
+// Adiciona um ouvinte de evento para o clique
+botao.addEventListener('click', run);
+
+</script> 
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Histórico</title>
+</head>
+<body>
+    <h1>Registro de Ações do Chatbot</h1>
+    <form id="acaoForm">
+        <label for="userId">ID do Usuário:</label>
+        <input type="text" id="userId" name="userId" required>
+        <br><br>
+        <label for="acao">Ação:</label>
+        <input type="text" id="acao" name="acao" required>
+        <br><br>
+        <button type="submit">Registrar Ação</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('acaoForm');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const userId = document.getElementById('userId').value;
+            const acao = document.getElementById('acao').value;
+
+            const response = await fetch('http://localhost:3000/registrar-acao', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userId, acao }),
+            });
+
+            const message = await response.text();
+            alert(message);
+        });
+    </script>
+</body>
+</html>
 
