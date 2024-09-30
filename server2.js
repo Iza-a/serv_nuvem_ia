@@ -9,7 +9,7 @@ const port = 3000;
 
 // Middleware para parsear o corpo das requisições
 app.use(bodyParser.json());
-
+app.use(cors());
 // Conexão com o MongoDB Atlas
 const dbURI = 'mongodb+srv://almeidaizabellyfernanda:TR1Ape4uvCJ@cluster0.tjqy0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
